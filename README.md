@@ -1,0 +1,2 @@
+# example
+Go Project template
