@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  example:
+    build: .
+    container_name: example
+    networks:
+      - example
+
+networks:
+  example:

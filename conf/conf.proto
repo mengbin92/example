@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package example.conf;
+
+option go_package = "./;conf";
+
+import "google/protobuf/duration.proto";
+
+message Log {
+  // 日志级别设置
+  // 支持debug(-1)、info(0)、warn(1)、error(2)、dpanic(3)、panic(4)、fatal(5)
+  int32 level = 1;
+  // 日志输出格式，支持json or console
+  string format = 2;
+}
+
+message Database {
+  // 数据库类型：mysql、sqlite3、postgres
+  string driver = 1;
+  string source = 2;
+  // 最大空闲连接数
+  int64 max_idle_conn = 3;
+  // 最大连接数
+  int64 max_open_conn = 4;
+  // 连接空闲超时参数
+  google.protobuf.Duration conn_max_lifetime = 5;
+}
+message Redis {
+  string network = 1;
+  string addr = 2;
+  string password = 3;
+  int32 db = 4;
+  google.protobuf.Duration dial_timeout = 5;
+  google.protobuf.Duration read_timeout = 6;
+  google.protobuf.Duration write_timeout = 7;
+}
+
+message Data {
+  Database database = 1;
+  Redis redis = 2;
+}
+
+message Bootstrap {
+  Log log = 1;
+  Data data = 2;
+}
